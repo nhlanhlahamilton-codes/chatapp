@@ -9,6 +9,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -65,15 +69,17 @@ public class Server {
                 }
                 broadcast(username + " has joined the chat!", out);
                 String clientMessage;
+                SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+                String currentTime = timeFormatter.format(new Date());
                 while ((clientMessage = in.readLine()) != null){
                     if (clientMessage.equalsIgnoreCase("exit")){
                         break;
                     }
-                    String formattedMessage = username + ": " + clientMessage;
+                    String formattedMessage = username + ": " + clientMessage + "\t" + currentTime;
                     System.out.println(formattedMessage);
 
                     Database.saveMessage(username, clientMessage);
-                    broadcast(formattedMessage, out);
+                    broadcast(formattedMessage, null);
 
                 }
 

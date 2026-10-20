@@ -70,8 +70,8 @@ public class Server {
                 broadcast(username + " has joined the chat!", out);
                 String clientMessage;
                 SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
-                String currentTime = timeFormatter.format(new Date());
                 while ((clientMessage = in.readLine()) != null){
+                    String currentTime = timeFormatter.format(new Date());
                     if (clientMessage.equalsIgnoreCase("exit")){
                         break;
                     }
@@ -79,7 +79,7 @@ public class Server {
                     System.out.println(formattedMessage);
 
                     Database.saveMessage(username, clientMessage);
-                    broadcast(formattedMessage, null);
+                    broadcast(formattedMessage, out);
 
                 }
 
